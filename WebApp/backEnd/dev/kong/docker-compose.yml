@@ -1,0 +1,68 @@
+services:
+
+  database:
+    image: postgres:15
+    volumes:
+      - pgdata:var/lib/postgresql/database
+    ports:
+      - 5432:5432
+    networks:
+      - kong-net
+    environment:
+      - PG_USERNAME=pgadmin
+      - DATABAS_HOST=localhost
+      - PG_PASSWORD=dbhero2024
+  
+
+
+  cache:
+    image: redis:latest
+
+    volumes:
+      - .:/data
+
+    ports:
+      - 6379:6379
+      - 8001:8001
+  
+  queing:
+    image: rabbitmq:latest
+    environment:
+      - name=value
+
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - rabbitmq_data:/data
+
+  kong-gateway:
+    image: kong:3.8.0.0
+
+    environment:
+      - KONG_DATABASE=${KONG_DATABASE}
+      - KONG_PG_HOST=${KONG_PG_HOST}
+      - KONG_PG_USER=${KONG_PG_USER}
+      - KONG_PG_PASSWORD=${KONG_PG_PASSWORD}
+      - KONG_PROXY_ACCESS_LOG=${KONG_PROXY_ACCESS_LOG}
+      - KONG_ADMIN_ACCESS_LOG=${KONG_ADMIN_ACCESS_LOG}
+      - KONG_PROXY_ERROR_LOG=${KONG_PROXY_ERROR_LOG}
+      - KONG_ADMIN_ERROR_LOG=${KONG_ADMIN_ERROR_LOG}
+      - KONG_ADMIN_LISTEN=${KONG_ADMIN_GUI_URL}
+      - KONG_ADMIN_GUI_URL=${KONG_ADMIN_GUI_URL}
+
+
+    ports:
+      - 8443:8443
+      - 8000:8000
+      - 127.0.0.1:8444:8444
+      - 127.0.0.1:8002:8002
+      - 127.0.0.1:8001:8001
+    networks:
+      - kong-net
+volumes:
+  pgdata:
+  rabbitmq_data:
+  cache:
+networks:
+  kong-net:

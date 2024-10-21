@@ -1,0 +1,18 @@
+
+###get all locations
+GET http://localhost:3000/location
+
+###get 1 location
+GET http://localhost:3000/location/5
+
+
+### create one location
+POST http://localhost:3000/location
+Content-Type: application/json
+
+{
+    "storeName": "MobileMunchies Origin Store",
+    "location": "yo mama's house",
+    "date": "2024-10-15 23:11:11"
+}
+
