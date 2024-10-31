@@ -4,7 +4,7 @@ import { Injectable, NestMiddleware } from '@nestjs/common';
 export class LoggerMiddleware implements NestMiddleware {
   use(req: any, res: any, next: () => void) {
     const time = new Date();
-    console.log('LOG:', time, req.body);
+    console.log('LOG:', time, req.rawHeaders);
     next();
   }
 }

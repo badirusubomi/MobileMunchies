@@ -16,3 +16,20 @@ Content-Type: application/json
     "date": "2024-10-15 23:11:11"
 }
 
+### Create User: password is password
+POST http://localhost:3000/user/create
+Content-Type: application/json
+
+{
+    "name": "Olasubomi Badiru",
+    "email": "badirusubomi@gmail.com",
+    "passwordHash":"$2y$12$9NSLNecN63oD27oqY/I20O83bg/p8/epLaTN6I/THxr0Lj8ntRkjO",
+    "creationDate": "2024-10-15 23:11:11"
+}
+
+### get all users
+GET http://localhost:3000/user/all
+
+
+### get one user
+GET http://localhost:3000/user/6

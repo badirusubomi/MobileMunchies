@@ -1,0 +1,16 @@
+_format_version: '2.1'
+
+services:
+  - name: location-service
+    url: https://mobileMunchies.com
+    routes:
+      - name: location
+        paths:
+          - /locations
+
+  - name: user-service
+    url: https://host.docker.internal:8002
+    routes:
+      - name: users
+        paths:
+          - /users
